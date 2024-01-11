@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="utf-8"?>
+<widget id="mendix.fabricjs.FabricJS" pluginWidget="true" needsEntityContext="true" offlineCapable="true" supportedPlatform="Web"
+    xmlns="http://www.mendix.com/widget/1.0/"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.mendix.com/widget/1.0/ ../node_modules/mendix/custom_widget.xsd">
+    <name>Fabric JS</name>
+    <description>Stencil editor</description>
+    <icon/>
+    <properties>
+        <propertyGroup caption="General">
+
+            <propertyGroup caption="Attributes">
+                <property key="attrJson" type="attribute" required="true">
+                    <caption>Canvas Content</caption>
+                    <description>Attribute to store the JSON of the canvas contents</description>
+                    <attributeTypes>
+                        <attributeType name="String" />
+                    </attributeTypes>
+                </property>
+                <property key="pointerXAxis" type="attribute" required="true">
+                    <caption>Pointer X-Axis</caption>
+                    <description>Attribute to store the canvas X-Axis clicks</description>
+                    <attributeTypes>
+                        <attributeType name="String"/>
+                    </attributeTypes>
+                </property>
+                <property key="pointerYAxis" type="attribute" required="true">
+                    <caption>Pointer Y-Axis</caption>
+                    <description>Attribute to store the canvas Y-Axis clicks</description>
+                    <attributeTypes>
+                        <attributeType name="String"/>
+                    </attributeTypes>
+                </property>
+                <property key="selectedJson" type="attribute" required="true">
+                    <caption>Selected Content</caption>
+                    <description>Attribute to store the canvas contents selected</description>
+                    <attributeTypes>
+                        <attributeType name="String" />
+                    </attributeTypes>
+                </property>
+                <property key="clonedJson" type="attribute" required="true">
+                    <caption>Cloned Content</caption>
+                    <description>Attribute to store the JSON of the cloned data objects</description>
+                    <attributeTypes>
+                        <attributeType name="String" />
+                    </attributeTypes>
+                </property>
+                <property key="imageToAdd" type="file" required="true">
+                    <caption>Image to Add</caption>
+                    <description>system.image generalization to allow for adding mendix images to canvas</description>
+                </property>
+                <property key="isDataObject" type="attribute" required="false">
+                    <caption>Is Data Object</caption>
+                    <description>Images that are added can either be data objects or not</description>
+                    <attributeTypes>
+                        <attributeType name="Boolean" />
+                    </attributeTypes>
+                </property>
+            </propertyGroup>
+
+            <propertyGroup caption="Actions">
+                <property key="onSelectionChange" type="action">
+                    <caption>On Selection</caption>
+                    <description>Action to be performed when canvas objects are selected</description>
+                </property>
+                <property key="onSaveAction" type="action">
+                    <caption>On Save</caption>
+                    <description>Action to be performed to save canvas</description>
+                </property>
+                <property key="onAddDataObject" type="action">
+                    <caption>On Add of Data Object</caption>
+                    <description>Action to be called when the canvas recieves a click to add a data object</description>
+                </property>
+                <property key="onCloneDataObject" type="action">
+                    <caption>On Clone of Data Object</caption>
+                    <description>Action to be called when the canvas clones data objects</description>
+                </property>
+            </propertyGroup>
+        </propertyGroup>
+    </properties>
+</widget>

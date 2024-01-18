@@ -75,6 +75,28 @@
                     <description>Action to be called when the canvas clones data objects</description>
                 </property>
             </propertyGroup>
+
+        </propertyGroup>
+        <propertyGroup caption="Behavior">
+            <property key="mapping" type="object" isList="true" required="false">
+              <caption>Mapping</caption>
+              <description>Map your object types to Fabric JSON objects</description>
+              <properties>
+                <property key="key" type="expression" defaultValue="">
+                  <caption>Key</caption>
+                  <description></description>
+                  <returnType type="String" />
+                </property>
+                <!-- CONNECT THIS TO YOUR DATASOURCE -->
+                <property key="textTemplate" type="textTemplate" required="true" multiline="false" dataSource="foo">
+                  <caption>Template</caption>
+                  <description></description>
+                  <translations>
+                    <translation lang="en_US">defaultValue</translation>
+                  </translations>
+                </property>
+              </properties>
+            </property>
         </propertyGroup>
     </properties>
 </widget>

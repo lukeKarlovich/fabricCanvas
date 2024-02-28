@@ -37,12 +37,24 @@
                         <attributeType name="String" />
                     </attributeTypes>
                 </property>
-                <property key="clonedJson" type="attribute" required="true">
-                    <caption>Cloned Content</caption>
-                    <description>Attribute to store the JSON of the cloned data objects</description>
+                <property key="duplicatedJson" type="attribute" required="true">
+                    <caption>Duplicated Content</caption>
+                    <description>Attribute to store the JSON of the duplicated data objects</description>
                     <attributeTypes>
                         <attributeType name="String" />
                     </attributeTypes>
+                </property>
+                <property key="mxMapIdToAdd" type="attribute" required="true">
+                    <caption>ID of data object added</caption>
+                    <description>Attribute to store the ID of newly added data object</description>
+                    <attributeTypes>
+                        <attributeType name="String" />
+                    </attributeTypes>
+                </property>
+                <property key="isReadOnly" type="expression" defaultValue="false">
+                    <caption>Is Read Only</caption>
+                    <description>Return true if canvas show be read only</description>
+                    <returnType type="Boolean" />
                 </property>
                 <property key="imageToAdd" type="file" required="true">
                     <caption>Image to Add</caption>
@@ -62,17 +74,27 @@
                     <caption>On Selection</caption>
                     <description>Action to be performed when canvas objects are selected</description>
                 </property>
-                <property key="onSaveAction" type="action">
-                    <caption>On Save</caption>
-                    <description>Action to be performed to save canvas</description>
-                </property>
                 <property key="onAddDataObject" type="action">
                     <caption>On Add of Data Object</caption>
                     <description>Action to be called when the canvas recieves a click to add a data object</description>
                 </property>
-                <property key="onCloneDataObject" type="action">
-                    <caption>On Clone of Data Object</caption>
-                    <description>Action to be called when the canvas clones data objects</description>
+                <property key="onDuplicationDataObject" type="action">
+                    <caption>On Duplication of Data Object</caption>
+                    <description>Action to be called when the canvas duplicates data objects</description>
+                </property>
+            </propertyGroup>
+
+            <propertyGroup caption="Shapes">
+                <property key="shapeList" type="datasource" isList="true" required="false">
+                    <caption>Shape data source</caption>
+                    <description>Canvas Objects list</description>
+                </property>
+                <property key="shapeJson" type="attribute" dataSource="shapeList" required="false">
+                    <caption>Shape JSON</caption>
+                    <description>JSON of canvas object</description>
+                    <attributeTypes>
+                        <attributeType name="String" />
+                    </attributeTypes>
                 </property>
             </propertyGroup>
         </propertyGroup>

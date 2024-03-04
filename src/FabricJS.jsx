@@ -2,7 +2,7 @@ import { Fragment, createElement, useEffect, useRef, useState } from "react";
 import { fabric } from "fabric";
 
 import { FabricJSCanvas, useFabricJSEditor } from "fabricjs-react";
-import "./ui/FabricJS.css";
+import "./ui/FabricJS.scss";
 
 import { Button, ToggleButton, Dropdown } from "react-bootstrap";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
@@ -532,7 +532,8 @@ export function FabricJS({
             editor &&
             editor.canvas &&
             attrJson.status === "available" &&
-            isReadOnly.status === "available"
+            isReadOnly.status === "available" &&
+            mxMapIdToAdd.status === "available"
         ) {
             ImportJSON();
             if (isReadOnly.value) {

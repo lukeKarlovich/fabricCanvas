@@ -21,15 +21,3 @@
     - the bundle will be included in a `dist` folder in the root directory of the project;
     - the bundle will be included in the `deployment` and `widgets` folder of the Mendix test project.
 
-If you run into error "Module level directives cause errors when bundled, 'use client' was ignored"
-
-Add to nodeModules/@mendix/pluggable-widgets-tools/configs/rollup.config.js
-
-On line 294 add or at the start of the onwarn function:
-        if (warning.code === 'MODULE_LEVEL_DIRECTIVE') {
-            return
-        }
-
-See https://forum.mendix.com/link/space/widgets/questions/128609 for additional details
-
-[specify contribution]

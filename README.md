@@ -1,4 +1,4 @@
-## FabricJS
+## EasyCanvas
 [Stencil editor]
 
 ## Features

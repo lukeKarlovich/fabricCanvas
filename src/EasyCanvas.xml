@@ -46,7 +46,7 @@
                 </property>
                 <property key="defaultColor"
                           type="expression"
-                          defaultValue="'black'">
+                          defaultValue="'#000000'">
                     <caption>Default Color</caption>
                     <description>Default CSS color for canvas, this includes shapes, text and drawing stencil</description>
                     <returnType type="String" />

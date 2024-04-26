@@ -2,7 +2,7 @@ import { Fragment, createElement, useEffect, useRef, useState } from "react";
 import { fabric } from "fabric";
 import "fabric-history";
 import { FabricJSCanvas, useFabricJSEditor } from "fabricjs-react";
-import "./ui/EasyCanvas.scss";
+import "./ui/FabricCanvas.scss";
 
 import { Button, ToggleButton, Dropdown } from "react-bootstrap";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
@@ -61,7 +61,7 @@ function unlockObject(selectedObject) {
     selectedObject.selectable = true;
 }
 
-export function EasyCanvas({
+export function FabricCanvas({
     contentJSON,
     showToolBar,
     onAddImage,
@@ -425,7 +425,7 @@ export function EasyCanvas({
 
     const prepareCanvas = () => {
         function updateSize() {
-            const canvasContainer = document.getElementsByClassName(widgetId)[0]?.querySelector(".easy-canvas-component-canvas-container");
+            const canvasContainer = document.getElementsByClassName(widgetId)[0]?.querySelector(".fabric-canvas-component-canvas-container");
             const canvasDimensions = {
                 width: canvasContainer?.clientWidth ? canvasContainer.clientWidth : 1000,
                 height: canvasContainer?.clientHeight ? canvasContainer.clientHeight : 1000
@@ -440,7 +440,7 @@ export function EasyCanvas({
             updateSize();
         }, 5);
 
-        const CanvasComponent = document.getElementsByClassName(widgetId)[0]?.querySelector(".easy-canvas-component-canvas-container");
+        const CanvasComponent = document.getElementsByClassName(widgetId)[0]?.querySelector(".fabric-canvas-component-canvas-container");
 
         if (CanvasComponent) {
             const resizeObserver = new ResizeObserver(updateSize);
@@ -599,9 +599,9 @@ export function EasyCanvas({
     }, [selectedObjects]);
 
     return (
-        <div className={"easy-canvas-widget " + widgetId} tabIndex={0}>
+        <div className={"fabric-canvas-widget " + widgetId} tabIndex={0}>
             {showToolBar ? (
-                <div className="easy-canvas-widget-button-container">
+                <div className="fabric-canvas-widget-button-container">
                     <Button variant="default" onClick={onDuplicate} title="Duplicate">
                         <FontAwesomeIcon icon={faClone} />
                     </Button>
@@ -898,8 +898,8 @@ export function EasyCanvas({
                     ) : null}
                 </div>
             ) : null}
-            <div className="easy-canvas-component-canvas-container">
-                <FabricJSCanvas className="easy-canvas-widget-fabric-component" onReady={onReady} />
+            <div className="fabric-canvas-component-canvas-container">
+                <FabricJSCanvas className="fabric-canvas-widget-fabric-component" onReady={onReady} />
             </div>
         </div>
     );

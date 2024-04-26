@@ -1,4 +1,4 @@
-## EasyCanvas
+## FabricCanvas
 [Stencil editor]
 
 ## Features

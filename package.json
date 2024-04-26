@@ -1,6 +1,6 @@
 {
-  "name": "easycanvas",
-  "widgetName": "EasyCanvas",
+  "name": "fabriccanvas",
+  "widgetName": "FabricCanvas",
   "version": "1.0.0",
   "description": "Stencil editor",
   "copyright": "© Mendix Technology BV 2022. All rights reserved.",

@@ -87,15 +87,6 @@
                     <caption>On Save</caption>
                     <description>Action to be performed when Save Button is clicked or when the On Save Toggle is set to true</description>
                 </property>
-                <property key="onSaveToggle"
-                          type="attribute"
-                          required="false">
-                    <caption>On Save Toggle</caption>
-                    <description>Toggling this attibute to true will export the current canvas JSON to the Canvas Content attibute and perform On Save action</description>
-                    <attributeTypes>
-                        <attributeType name="Boolean" />
-                    </attributeTypes>
-                </property>
             </propertyGroup>
             <propertyGroup caption="Additional Configurations">
                 <property key="hasKeyBoardControls"

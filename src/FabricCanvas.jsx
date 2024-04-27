@@ -70,7 +70,6 @@ export function FabricCanvas({
     isImageClickToCanvas,
     hasSaveButton,
     onSave,
-    onSaveToggle,
     defaultColor,
     hasClearCanvasButton,
     hasDownloadButton,
@@ -579,13 +578,6 @@ export function FabricCanvas({
             editor.canvas.renderAll();
         }
     }, [color]);
-
-    useEffect(() => {
-        if (hasInitialized.current && onSaveToggle.status === "available" && onSaveToggle.value) {
-            !onSaveToggle.readonly ? onSaveToggle.setValue(false) : null;
-            onExportAndSave();
-        }
-    }, [onSaveToggle?.value]);
 
     useEffect(() => {
         if (selectedJSON?.status === "available" && !selectedJSON.readonly) {

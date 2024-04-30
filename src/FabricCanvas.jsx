@@ -869,22 +869,23 @@ export function FabricCanvas({
                             variant="default"
                             onClick={onAddImage?.canExecute ? onAddImage.execute : null}
                             title="Add Image"
+                            className="tool-bar-add-image"
                         >
                             Add Image
                         </Button>
                     ) : null}
                     {hasDownloadButton ? (
-                        <Button variant="default" onClick={onDownload} title="Download">
+                        <Button variant="default" onClick={onDownload} title="Download" className="tool-bar-download">
                             Download
                         </Button>
                     ) : null}
                     {hasSaveButton ? (
-                        <Button variant="default" onClick={onExportAndSave} title="Save">
+                        <Button variant="default" onClick={onExportAndSave} title="Save" className="tool-bar-save">
                             Save
                         </Button>
                     ) : null}
                     {hasClearCanvasButton ? (
-                        <Button variant="default" onClick={onClearcanvas} title="Clear Canvas">
+                        <Button variant="default" onClick={onClearcanvas} title="Clear Canvas" className="tool-bar-clear-canvas">
                             Clear Canvas
                         </Button>
                     ) : null}

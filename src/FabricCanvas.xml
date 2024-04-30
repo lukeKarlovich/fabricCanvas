@@ -11,32 +11,66 @@
     <description>Canvas Editor</description>
     <icon />
     <properties>
-        <propertyGroup caption="General">
-            <propertyGroup caption="Canvas Content">
-                <property key="contentJSON"
-                          type="attribute"
-                          required="true">
-                    <caption>Canvas JSON</caption>
-                    <description>Attribute to store the JSON of the canvas contents (no string limit)</description>
-                    <attributeTypes>
-                        <attributeType name="String" />
-                    </attributeTypes>
-                </property>
-            </propertyGroup>
-            <propertyGroup caption="Images">
-                <property key="imageToAdd"
-                          type="file"
-                          required="false">
-                    <caption>Image to Add</caption>
-                    <description>Association to system.image to allow for adding mendix images to canvas</description>
-                </property>
-                <property key="isImageClickToCanvas"
-                          type="boolean"
-                          defaultValue="false">
-                    <caption>Click to Canvas</caption>
-                    <description>When the Image to Add association is set, this will allow you to click on the canvas to add the image. When false, images will be positioned automatically when Image to Add association is set.</description>
-                </property>
-            </propertyGroup>
+        <propertyGroup caption="Data Source">
+            <property key="contentJSON"
+                      type="attribute"
+                      required="true">
+                <caption>Canvas JSON</caption>
+                <description>Attribute to store the JSON of the canvas contents (no string limit)</description>
+                <attributeTypes>
+                    <attributeType name="String" />
+                </attributeTypes>
+            </property>
+            <property key="selectedJSON"
+                      type="attribute"
+                      required="false">
+                <caption>Selected Content JSON</caption>
+                <description>Attribute to store the JSON of the selected canvas contents (no string limit)</description>
+                <attributeTypes>
+                    <attributeType name="String" />
+                </attributeTypes>
+            </property>
+            <property key="imageToAdd"
+                      type="file"
+                      required="false">
+                <caption>Image to Add</caption>
+                <description>Association to system.image to allow for adding mendix images to canvas</description>
+            </property>
+        </propertyGroup>
+        <propertyGroup caption="Events">
+            <property key="onSave"
+                      type="action">
+                <caption>On Save</caption>
+                <description>Action to be performed when Save Button is clicked</description>
+            </property>
+            <property key="onSelectionChange"
+                      type="action">
+                <caption>On Selection</caption>
+                <description>Action to be performed when canvas objects are selected</description>
+            </property>
+            <property key="onAddImage"
+                      type="action">
+                <caption>On Add Image</caption>
+                <description>Action to be performed when Add Image Button is clicked</description>
+            </property>
+            <property key="isImageClickToCanvas"
+                      type="boolean"
+                      defaultValue="false">
+                <caption>Click to Canvas</caption>
+                <description>When the Image to Add association is set, this will allow you to click on the canvas to add the image. When false, images will be positioned automatically when Image to Add association is set.</description>
+            </property>
+            <property key="hasKeyBoardControls"
+                      type="boolean"
+                      defaultValue="true">
+                <caption>Has Keyboard Controls</caption>
+                <description>Available Keyboard controls consist of:
+    - Arrow keys (move selected objects around canvas)
+    - Delete/Backspace (delete selected objects)
+    - Ctrl + z (Undo)	
+    - Ctrl + y (Redo)</description>
+            </property>
+        </propertyGroup>
+        <propertyGroup caption="Appearance">
             <propertyGroup caption="Toolbar">
                 <property key="showToolBar"
                           type="expression"
@@ -45,30 +79,18 @@
                     <description>Setting this to false will hide the toolbar</description>
                     <returnType type="Boolean" />
                 </property>
-                <property key="defaultColor"
-                          type="expression"
-                          defaultValue="'#000000'">
-                    <caption>Default Color</caption>
-                    <description>Default CSS color for canvas, this includes shapes, text and drawing stencil</description>
-                    <returnType type="String" />
-                </property>
                 <property key="hasAddImageButton"
                           type="expression"
                           defaultValue="false">
-                    <caption>Show Add Image Button</caption>
+                    <caption>Show Add Image Btn</caption>
                     <description>Will perform On Add Image action</description>
                     <returnType type="Boolean" />
-                </property>
-                <property key="onAddImage"
-                          type="action">
-                    <caption>On Add Image</caption>
-                    <description>Action to be performed when Add Image Button is clicked</description>
                 </property>
                 <property key="hasSaveButton"
                           type="expression"
                           defaultValue="false">
-                    <caption>Show Save Button</caption>
-                    <description>Will export the current canvas JSON to the Canvas Content attibute and perform On Save action</description>
+                    <caption>Show Save Btn</caption>
+                    <description>Will export the JSON of the current canvas to the Canvas JSON attibute and perform the On Save action</description>
                     <returnType type="Boolean" />
                 </property>
                 <property key="hasClearCanvasButton"
@@ -85,38 +107,12 @@
                     <description>Will download canvas as a png</description>
                     <returnType type="Boolean" />
                 </property>
-            </propertyGroup>
-            <propertyGroup caption="Saving Canvas">
-                <property key="onSave"
-                          type="action">
-                    <caption>On Save</caption>
-                    <description>Action to be performed when Save Button is clicked</description>
-                </property>
-            </propertyGroup>
-            <propertyGroup caption="Additional Configurations">
-                <property key="hasKeyBoardControls"
-                          type="boolean"
-                          defaultValue="true">
-                    <caption>Has Keyboard Controls</caption>
-                    <description>Available Keyboard controls consist of:
-    - Arrow keys (move selected objects around canvas)
-    - Delete/Backspace (delete selected objects)
-    - Ctrl + z (Undo)	
-    - Ctrl + y (Redo)</description>
-                </property>
-                <property key="selectedJSON"
-                          type="attribute"
-                          required="false">
-                    <caption>Selected Content JSON</caption>
-                    <description>Attribute to store the JSON of the selected canvas content (no string limit)</description>
-                    <attributeTypes>
-                        <attributeType name="String" />
-                    </attributeTypes>
-                </property>
-                <property key="onSelectionChange"
-                          type="action">
-                    <caption>On Selection</caption>
-                    <description>Action to be performed when canvas objects are selected</description>
+                <property key="defaultColor"
+                          type="expression"
+                          defaultValue="'#000000'">
+                    <caption>Default Color</caption>
+                    <description>Default CSS color for canvas, this includes shapes, text and drawing stencil</description>
+                    <returnType type="String" />
                 </property>
             </propertyGroup>
         </propertyGroup>

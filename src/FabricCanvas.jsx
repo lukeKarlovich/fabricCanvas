@@ -592,7 +592,7 @@ export function FabricCanvas({
 
     return (
         <div className={"fabric-canvas-widget " + widgetId} tabIndex={0}>
-            {showToolBar ? (
+            {showToolBar.value ? (
                 <div className="fabric-canvas-widget-button-container">
                     <Button variant="default" onClick={onDuplicate} title="Duplicate">
                         <FontAwesomeIcon icon={faClone} />
@@ -864,7 +864,7 @@ export function FabricCanvas({
                         Color
                         <FontAwesomeIcon icon={faChevronDown} style={{ marginLeft: "10px" }} />
                     </label>
-                    {hasAddImageButton ? (
+                    {hasAddImageButton.value ? (
                         <Button
                             variant="default"
                             onClick={onAddImage?.canExecute ? onAddImage.execute : null}
@@ -874,17 +874,17 @@ export function FabricCanvas({
                             Add Image
                         </Button>
                     ) : null}
-                    {hasDownloadButton ? (
+                    {hasDownloadButton.value ? (
                         <Button variant="default" onClick={onDownload} title="Download" className="tool-bar-download">
                             Download
                         </Button>
                     ) : null}
-                    {hasSaveButton ? (
+                    {hasSaveButton.value ? (
                         <Button variant="default" onClick={onExportAndSave} title="Save" className="tool-bar-save">
                             Save
                         </Button>
                     ) : null}
-                    {hasClearCanvasButton ? (
+                    {hasClearCanvasButton.value ? (
                         <Button variant="default" onClick={onClearcanvas} title="Clear Canvas" className="tool-bar-clear-canvas">
                             Clear Canvas
                         </Button>

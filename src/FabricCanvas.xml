@@ -39,10 +39,11 @@
             </propertyGroup>
             <propertyGroup caption="Toolbar">
                 <property key="showToolBar"
-                          type="boolean"
+                          type="expression"
                           defaultValue="true">
                     <caption>Show Toolbar</caption>
-                    <description>Setting this to no will hide the toolbar</description>
+                    <description>Setting this to false will hide the toolbar</description>
+                    <returnType type="Boolean" />
                 </property>
                 <property key="defaultColor"
                           type="expression"
@@ -52,10 +53,11 @@
                     <returnType type="String" />
                 </property>
                 <property key="hasAddImageButton"
-                          type="boolean"
+                          type="expression"
                           defaultValue="false">
                     <caption>Show Add Image Button</caption>
                     <description>Will perform On Add Image action</description>
+                    <returnType type="Boolean" />
                 </property>
                 <property key="onAddImage"
                           type="action">
@@ -63,29 +65,32 @@
                     <description>Action to be performed when Add Image Button is clicked</description>
                 </property>
                 <property key="hasSaveButton"
-                          type="boolean"
+                          type="expression"
                           defaultValue="false">
                     <caption>Show Save Button</caption>
                     <description>Will export the current canvas JSON to the Canvas Content attibute and perform On Save action</description>
+                    <returnType type="Boolean" />
                 </property>
                 <property key="hasClearCanvasButton"
-                          type="boolean"
+                          type="expression"
                           defaultValue="false">
                     <caption>Show Clear Canvas Btn</caption>
                     <description>Will clear all contents of the canvas</description>
+                    <returnType type="Boolean" />
                 </property>
                 <property key="hasDownloadButton"
-                          type="boolean"
+                          type="expression"
                           defaultValue="false">
                     <caption>Show Download Btn</caption>
                     <description>Will download canvas as a png</description>
+                    <returnType type="Boolean" />
                 </property>
             </propertyGroup>
             <propertyGroup caption="Saving Canvas">
                 <property key="onSave"
                           type="action">
                     <caption>On Save</caption>
-                    <description>Action to be performed when Save Button is clicked or when the On Save Toggle is set to true</description>
+                    <description>Action to be performed when Save Button is clicked</description>
                 </property>
             </propertyGroup>
             <propertyGroup caption="Additional Configurations">

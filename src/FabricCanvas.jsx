@@ -424,25 +424,36 @@ export function FabricCanvas({
 
     const prepareCanvas = () => {
         function updateSize() {
-            const canvasContainer = document.getElementsByClassName(widgetId)[0]?.querySelector(".fabric-canvas-component-canvas-container");
+            const canvasContainer = document
+                .getElementsByClassName(widgetId)[0]
+                ?.querySelector(".fabric-canvas-component-canvas-container");
             const canvasDimensions = {
-                width: canvasContainer?.clientWidth ? canvasContainer.clientWidth : 1000,
-                height: canvasContainer?.clientHeight ? canvasContainer.clientHeight : 1000
+                width: canvasContainer.clientWidth,
+                height: canvasContainer.clientHeight
             };
-            if (editor && editor.canvas) {
+            if (editor && editor.canvas && canvasDimensions.height && canvasDimensions.width) {
                 editor.canvas.setDimensions(canvasDimensions);
             }
-            return canvasDimensions;
         }
 
         setTimeout(() => {
             updateSize();
         }, 5);
 
-        const CanvasComponent = document.getElementsByClassName(widgetId)[0]?.querySelector(".fabric-canvas-component-canvas-container");
+        const CanvasComponent = document
+            .getElementsByClassName(widgetId)[0]
+            ?.querySelector(".fabric-canvas-component-canvas-container");
 
         if (CanvasComponent) {
-            const resizeObserver = new ResizeObserver(updateSize);
+            const resizeObserver = new ResizeObserver(entries => {
+                // We wrap it in requestAnimationFrame to avoid error - ResizeObserver loop limit exceeded
+                window.requestAnimationFrame(() => {
+                    if (!Array.isArray(entries) || !entries.length) {
+                        return;
+                    }
+                    updateSize();
+                });
+            });
             resizeObserver.observe(CanvasComponent);
 
             if (isImageClickToCanvas) {
@@ -885,7 +896,12 @@ export function FabricCanvas({
                         </Button>
                     ) : null}
                     {hasClearCanvasButton.value ? (
-                        <Button variant="default" onClick={onClearcanvas} title="Clear Canvas" className="tool-bar-clear-canvas">
+                        <Button
+                            variant="default"
+                            onClick={onClearcanvas}
+                            title="Clear Canvas"
+                            className="tool-bar-clear-canvas"
+                        >
                             Clear Canvas
                         </Button>
                     ) : null}

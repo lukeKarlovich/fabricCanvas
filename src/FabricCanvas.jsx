@@ -61,6 +61,43 @@ function unlockObject(selectedObject) {
     selectedObject.selectable = true;
 }
 
+// eslint-disable-next-line
+const getCanvasObjectByID = (arrayOfObjects, mxid) => {
+    // eslint-disable-next-line
+    function getNestedObject(currentObj, foundObject, mxid) {
+        if (currentObj !== null && typeof currentObj === "object" && !foundObject.length) {
+            if (currentObj.mxid === mxid) {
+                foundObject.push(currentObj);
+            } else if (currentObj.type === "group") {
+                currentObj._objects.forEach(subObj => getNestedObject(subObj, foundObject, mxid));
+            }
+        }
+    }
+
+    for (let x of arrayOfObjects) {
+        const myObject = [];
+        getNestedObject(x, myObject, mxid);
+        if (myObject.length) {
+            return myObject[0];
+        }
+        x += 1;
+    }
+};
+
+function parseAndSet(canvasObject, valsToSet) {
+    const { mxid, ...rest } = valsToSet;
+    // if (subObjects) {
+        canvasObject.set(rest);
+    //     subObjects.forEach(subValsToSet => {
+    //         const { subType, ...restOfSub } = subValsToSet;
+    //         const canvasObjectSubType = canvasObject
+    //             .getObjects()
+    //             .find(fabricSubObject => fabricSubObject.subType === subType);
+    //         canvasObjectSubType.set(restOfSub);
+    //     });
+    // }
+}
+
 export function FabricCanvas({
     contentJSON,
     showToolBar,
@@ -75,7 +112,10 @@ export function FabricCanvas({
     hasDownloadButton,
     hasKeyBoardControls,
     selectedJSON,
-    onSelectionChange
+    onSelectionChange,
+    isAdvanced,
+    canvasObjectList,
+    canvasObjectJson
 }) {
     const { editor, onReady, selectedObjects } = useFabricJSEditor();
     const imageSrc = useRef("");
@@ -110,6 +150,7 @@ export function FabricCanvas({
     const onAddCircle = () => {
         editor.canvas.add(
             new fabric.Circle({
+                mxid: uniqueId(),
                 radius: 20,
                 fill: color,
                 left: 100,
@@ -342,7 +383,7 @@ export function FabricCanvas({
 
     const onExportAndSave = () => {
         if (contentJSON.status === "available" && onSave.canExecute) {
-            !contentJSON.readonly ? contentJSON.setValue(JSON.stringify(editor.canvas.toJSON().objects)) : null;
+            !contentJSON.readonly ? contentJSON.setValue(JSON.stringify(editor.canvas.toJSON(["mxid"]).objects)) : null;
             onSave.execute();
         }
     };
@@ -590,6 +631,34 @@ export function FabricCanvas({
         }
     }, [color]);
 
+    //Advanced
+    //Receive newly created and updated canvas objects from mendix
+    useEffect(() => {
+        if (editor && isAdvanced && canvasObjectList && canvasObjectList.status === "available") {
+            const allCanvasObjects = editor.canvas.getObjects();
+
+            canvasObjectList?.items?.forEach(object => {
+                const objJson = canvasObjectJson.get(object)?.displayValue;
+                if (!objJson) {
+                    return;
+                }
+                const canvasObjectData = JSON.parse(objJson);
+                if (canvasObjectData.mxid) {
+                    const existingCanvasObject = getCanvasObjectByID(allCanvasObjects, canvasObjectData.mxid);
+                    if (existingCanvasObject) {
+                        parseAndSet(existingCanvasObject, canvasObjectData);
+                    } else {
+                        // eslint-disable-next-line
+                        fabric.util.enlivenObjects([canvasObjectData], function (enlivenedObjects) {
+                            editor.canvas.add(enlivenedObjects[0]);
+                        });
+                    }
+                    editor.canvas.renderAll();
+                }
+            });
+        }
+    }, [canvasObjectList]);
+
     useEffect(() => {
         if (selectedJSON?.status === "available" && !selectedJSON.readonly) {
             if (onSelectionChange?.canExecute && selectedObjects.length > 0) {
@@ -611,18 +680,22 @@ export function FabricCanvas({
                     <Button variant="default" onClick={onDelete} title="Delete">
                         <FontAwesomeIcon icon={faTrashAlt} />
                     </Button>
-                    <Button variant="default" onClick={onUndo} title="Undo">
-                        <FontAwesomeIcon icon={faRotateBackward} />
-                    </Button>
-                    <Button variant="default" onClick={onRedo} title="Redo">
-                        <FontAwesomeIcon icon={faRotateForward} />
-                    </Button>
-                    <Button variant="default" onClick={onGroup} title="Group">
-                        <FontAwesomeIcon icon={faObjectGroup} />
-                    </Button>
-                    <Button variant="default" onClick={onUngroup} title="Ungroup">
-                        <FontAwesomeIcon icon={faObjectUngroup} />
-                    </Button>
+                    {!isAdvanced ? (
+                        <Fragment>
+                            <Button variant="default" onClick={onUndo} title="Undo">
+                                <FontAwesomeIcon icon={faRotateBackward} />
+                            </Button>
+                            <Button variant="default" onClick={onRedo} title="Redo">
+                                <FontAwesomeIcon icon={faRotateForward} />
+                            </Button>
+                            <Button variant="default" onClick={onGroup} title="Group">
+                                <FontAwesomeIcon icon={faObjectGroup} />
+                            </Button>
+                            <Button variant="default" onClick={onUngroup} title="Ungroup">
+                                <FontAwesomeIcon icon={faObjectUngroup} />
+                            </Button>
+                        </Fragment>
+                    ) : null}
                     <Button variant="default" onClick={moveToBack} title="Move to back">
                         <FontAwesomeIcon icon={faRightToBracket} />
                     </Button>

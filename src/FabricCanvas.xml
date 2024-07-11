@@ -1,67 +1,51 @@
 <?xml version="1.0" encoding="utf-8"?>
-<widget id="mendix.fabriccanvas.FabricCanvas"
-        pluginWidget="true"
-        needsEntityContext="true"
-        offlineCapable="true"
-        supportedPlatform="Web"
-        xmlns="http://www.mendix.com/widget/1.0/"
-        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-        xsi:schemaLocation="http://www.mendix.com/widget/1.0/ ../node_modules/mendix/custom_widget.xsd">
+<widget id="mendix.fabriccanvas.FabricCanvas" pluginWidget="true" needsEntityContext="true"
+    offlineCapable="true" supportedPlatform="Web"
+    xmlns="http://www.mendix.com/widget/1.0/"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://www.mendix.com/widget/1.0/ ../node_modules/mendix/custom_widget.xsd">
     <name>Fabric Canvas</name>
     <description>Canvas Editor</description>
     <icon />
     <properties>
         <propertyGroup caption="Data Source">
-            <property key="contentJSON"
-                      type="attribute"
-                      required="true">
+            <property key="contentJSON" type="attribute" required="true">
                 <caption>Canvas JSON</caption>
                 <description>Attribute to store the JSON of the canvas contents (no string limit)</description>
                 <attributeTypes>
                     <attributeType name="String" />
                 </attributeTypes>
             </property>
-            <property key="selectedJSON"
-                      type="attribute"
-                      required="false">
+            <property key="selectedJSON" type="attribute" required="false">
                 <caption>Selected Content JSON</caption>
                 <description>Attribute to store the JSON of the selected canvas contents (no string limit)</description>
                 <attributeTypes>
                     <attributeType name="String" />
                 </attributeTypes>
             </property>
-            <property key="imageToAdd"
-                      type="file"
-                      required="false">
+            <property key="imageToAdd" type="file" required="false">
                 <caption>Image to Add</caption>
                 <description>Association to system.image to allow for adding mendix images to canvas</description>
             </property>
         </propertyGroup>
         <propertyGroup caption="Events">
-            <property key="onSave"
-                      type="action">
+            <property key="onSave" type="action">
                 <caption>On Save</caption>
                 <description>Action to be performed when Save Button is clicked</description>
             </property>
-            <property key="onSelectionChange"
-                      type="action">
+            <property key="onSelectionChange" type="action">
                 <caption>On Selection</caption>
                 <description>Action to be performed when canvas objects are selected</description>
             </property>
-            <property key="onAddImage"
-                      type="action">
+            <property key="onAddImage" type="action">
                 <caption>On Add Image</caption>
                 <description>Action to be performed when Add Image Button is clicked</description>
             </property>
-            <property key="isImageClickToCanvas"
-                      type="boolean"
-                      defaultValue="false">
+            <property key="isImageClickToCanvas" type="boolean" defaultValue="false">
                 <caption>Click to Canvas</caption>
                 <description>When the Image to Add association is set, this will allow you to click on the canvas to add the image. When false, images will be positioned automatically when Image to Add association is set.</description>
             </property>
-            <property key="hasKeyBoardControls"
-                      type="boolean"
-                      defaultValue="true">
+            <property key="hasKeyBoardControls" type="boolean" defaultValue="true">
                 <caption>Has Keyboard Controls</caption>
                 <description>Available Keyboard controls consist of:
     - Arrow keys (move selected objects around canvas)
@@ -72,49 +56,55 @@
         </propertyGroup>
         <propertyGroup caption="Appearance">
             <propertyGroup caption="Toolbar">
-                <property key="showToolBar"
-                          type="expression"
-                          defaultValue="true">
+                <property key="showToolBar" type="expression" defaultValue="true">
                     <caption>Show Toolbar</caption>
                     <description>Setting this to false will hide the toolbar</description>
                     <returnType type="Boolean" />
                 </property>
-                <property key="hasAddImageButton"
-                          type="expression"
-                          defaultValue="false">
+                <property key="hasAddImageButton" type="expression" defaultValue="false">
                     <caption>Show Add Image Btn</caption>
                     <description>Will perform On Add Image action</description>
                     <returnType type="Boolean" />
                 </property>
-                <property key="hasSaveButton"
-                          type="expression"
-                          defaultValue="false">
+                <property key="hasSaveButton" type="expression" defaultValue="false">
                     <caption>Show Save Btn</caption>
                     <description>Will export the JSON of the current canvas to the Canvas JSON attibute and perform the On Save action</description>
                     <returnType type="Boolean" />
                 </property>
-                <property key="hasClearCanvasButton"
-                          type="expression"
-                          defaultValue="false">
+                <property key="hasClearCanvasButton" type="expression" defaultValue="false">
                     <caption>Show Clear Canvas Btn</caption>
                     <description>Will clear all contents of the canvas</description>
                     <returnType type="Boolean" />
                 </property>
-                <property key="hasDownloadButton"
-                          type="expression"
-                          defaultValue="false">
+                <property key="hasDownloadButton" type="expression" defaultValue="false">
                     <caption>Show Download Btn</caption>
                     <description>Will download canvas as a png</description>
                     <returnType type="Boolean" />
                 </property>
-                <property key="defaultColor"
-                          type="expression"
-                          defaultValue="'#000000'">
+                <property key="defaultColor" type="expression" defaultValue="'#000000'">
                     <caption>Default Color</caption>
                     <description>Default CSS color for canvas, this includes shapes, text and drawing stencil</description>
                     <returnType type="String" />
                 </property>
             </propertyGroup>
+        </propertyGroup>
+        <propertyGroup caption="Advanced">
+            <property key="isAdvanced" type="boolean" defaultValue="false">
+                <caption>Use Advanced</caption>
+                <description>The advanced section will allow for canvas objects to be mapped to mendix objects.</description>
+            </property>
+            <property key="canvasObjectList" type="datasource" isList="true" required="false">
+                <caption>Canvas Object data source</caption>
+                <description>Canvas Objects list</description>
+            </property>
+            <property key="canvasObjectJson" type="attribute" dataSource="canvasObjectList"
+                required="false">
+                <caption>Canvas Ojbect JSON</caption>
+                <description>JSON of canvas object</description>
+                <attributeTypes>
+                    <attributeType name="String" />
+                </attributeTypes>
+            </property>
         </propertyGroup>
     </properties>
 </widget>

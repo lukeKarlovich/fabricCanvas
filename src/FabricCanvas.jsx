@@ -662,9 +662,9 @@ export function FabricCanvas({
                             editor.canvas.add(enlivenedObjects[0]);
                         });
                     }
-                    editor.canvas.renderAll();
                 }
             });
+            editor.canvas.renderAll();
         }
     }, [canvasObjectList]);
 

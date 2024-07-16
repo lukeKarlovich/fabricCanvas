@@ -87,7 +87,7 @@ const getCanvasObjectByID = (arrayOfObjects, mxid) => {
 function parseAndSet(canvasObject, valsToSet) {
     const { mxid, ...rest } = valsToSet;
     // if (subObjects) {
-        canvasObject.set(rest);
+    canvasObject.set(rest);
     //     subObjects.forEach(subValsToSet => {
     //         const { subType, ...restOfSub } = subValsToSet;
     //         const canvasObjectSubType = canvasObject
@@ -642,8 +642,14 @@ export function FabricCanvas({
                 if (!objJson) {
                     return;
                 }
-                const canvasObjectData = JSON.parse(objJson);
-                if (canvasObjectData.mxid) {
+
+                let canvasObjectData;
+                try {
+                    canvasObjectData = JSON.parse(objJson);
+                } catch {
+                    console.info('Invalid Canvas Object JSON')
+                }
+                if (canvasObjectData?.mxid) {
                     const existingCanvasObject = getCanvasObjectByID(allCanvasObjects, canvasObjectData.mxid);
                     if (existingCanvasObject) {
                         parseAndSet(existingCanvasObject, canvasObjectData);

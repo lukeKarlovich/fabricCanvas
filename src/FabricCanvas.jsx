@@ -88,6 +88,7 @@ function parseAndSet(canvasObject, valsToSet) {
     const { mxid, ...rest } = valsToSet;
     // if (subObjects) {
     canvasObject.set(rest);
+    canvasObject.setCoords();
     //     subObjects.forEach(subValsToSet => {
     //         const { subType, ...restOfSub } = subValsToSet;
     //         const canvasObjectSubType = canvasObject
@@ -647,7 +648,7 @@ export function FabricCanvas({
                 try {
                     canvasObjectData = JSON.parse(objJson);
                 } catch {
-                    console.info('Invalid Canvas Object JSON')
+                    console.info("Invalid Canvas Object JSON");
                 }
                 if (canvasObjectData?.mxid) {
                     const existingCanvasObject = getCanvasObjectByID(allCanvasObjects, canvasObjectData.mxid);
@@ -656,6 +657,8 @@ export function FabricCanvas({
                     } else {
                         // eslint-disable-next-line
                         fabric.util.enlivenObjects([canvasObjectData], function (enlivenedObjects) {
+                            //have to .setCoords() in order for objects to be selectable after upating
+                            enlivenedObjects[0].setCoords();
                             editor.canvas.add(enlivenedObjects[0]);
                         });
                     }

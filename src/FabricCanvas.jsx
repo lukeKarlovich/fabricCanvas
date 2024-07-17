@@ -116,7 +116,8 @@ export function FabricCanvas({
     onSelectionChange,
     isAdvanced,
     canvasObjectList,
-    canvasObjectJson
+    canvasObjectJson,
+    onCanvasChange
 }) {
     const { editor, onReady, selectedObjects } = useFabricJSEditor();
     const imageSrc = useRef("");
@@ -129,9 +130,13 @@ export function FabricCanvas({
 
     const onDelete = () => {
         if (editor.canvas.getActiveObjects()) {
-            editor.canvas.getActiveObjects().forEach(obj => {
-                editor.canvas.remove(obj);
-            });
+            if (isAdvanced) {
+
+            } else {
+                editor.canvas.getActiveObjects().forEach(obj => {
+                    editor.canvas.remove(obj);
+                });
+            }
             editor.canvas.discardActiveObject().renderAll();
         }
     };
@@ -382,9 +387,13 @@ export function FabricCanvas({
         document.body.removeChild(link);
     };
 
+    const exportCanvas = () => {
+        return JSON.stringify(editor.canvas.toJSON(["mxid"]).objects);
+    };
+
     const onExportAndSave = () => {
         if (contentJSON.status === "available" && onSave.canExecute) {
-            !contentJSON.readonly ? contentJSON.setValue(JSON.stringify(editor.canvas.toJSON(["mxid"]).objects)) : null;
+            !contentJSON.readonly ? contentJSON.setValue(exportCanvas()) : null;
             onSave.execute();
         }
     };
@@ -664,6 +673,7 @@ export function FabricCanvas({
                     }
                 }
             });
+            editor.canvas.discardActiveObject();
             editor.canvas.renderAll();
         }
     }, [canvasObjectList]);

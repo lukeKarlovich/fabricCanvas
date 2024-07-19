@@ -130,12 +130,12 @@ export function FabricCanvas({
 
     const onDelete = () => {
         if (editor.canvas.getActiveObjects()) {
-            if (isAdvanced) {
-
-            } else {
-                editor.canvas.getActiveObjects().forEach(obj => {
-                    editor.canvas.remove(obj);
-                });
+            editor.canvas.getActiveObjects().forEach(obj => {
+                editor.canvas.remove(obj);
+            });
+            if (isAdvanced && onCanvasChange?.canExecute && contentJSON.status === "available") {
+                !contentJSON.readonly ? contentJSON.setValue(exportCanvas()) : null;
+                onCanvasChange.execute();
             }
             editor.canvas.discardActiveObject().renderAll();
         }
@@ -666,9 +666,17 @@ export function FabricCanvas({
                     } else {
                         // eslint-disable-next-line
                         fabric.util.enlivenObjects([canvasObjectData], function (enlivenedObjects) {
-                            //have to .setCoords() in order for objects to be selectable after upating
-                            enlivenedObjects[0].setCoords();
-                            editor.canvas.add(enlivenedObjects[0]);
+                            if (enlivenedObjects[0]) {
+                                try {
+                                    //have to .setCoords() in order for objects to be selectable after upating
+                                    enlivenedObjects[0]?.setCoords();
+                                    editor.canvas.add(enlivenedObjects[0]);
+                                } catch {
+                                    console.info("Unable to add Canvas Object to Canvas due to invalid Canvas Object JSON");
+                                }
+                            } else {
+                                console.info("Unable to add Canvas Object to Canvas due to invalid Canvas Object JSON");
+                            }
                         });
                     }
                 }

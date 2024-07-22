@@ -133,9 +133,8 @@ export function FabricCanvas({
             editor.canvas.getActiveObjects().forEach(obj => {
                 editor.canvas.remove(obj);
             });
-            if (isAdvanced && onCanvasChange?.canExecute && contentJSON.status === "available") {
-                !contentJSON.readonly ? contentJSON.setValue(exportCanvas()) : null;
-                onCanvasChange.execute();
+            if (isAdvanced) {
+                onCanvasChangeAndExport();
             }
             editor.canvas.discardActiveObject().renderAll();
         }
@@ -387,6 +386,13 @@ export function FabricCanvas({
         document.body.removeChild(link);
     };
 
+    const onCanvasChangeAndExport = () => {
+        if (onCanvasChange?.canExecute && contentJSON.status === "available") {
+            !contentJSON.readonly ? contentJSON.setValue(exportCanvas()) : null;
+            onCanvasChange.execute();
+        }
+    };
+
     const exportCanvas = () => {
         if (isAdvanced) {
             return JSON.stringify(editor.canvas.toJSON(["mxid"]).objects.filter(e => e.visible));
@@ -434,16 +440,31 @@ export function FabricCanvas({
     const onDuplicate = () => {
         if (selectedObjects) {
             const activeObject = editor.canvas.getActiveObject();
-            selectedObjects.forEach(object => {
-                object.clone(duplicate => {
-                    editor.canvas.add(
-                        duplicate.set({
-                            left: activeObject.left - 10,
-                            top: activeObject.top - 10
-                        })
-                    );
+            if (isAdvanced) {
+                selectedObjects.forEach(object => {
+                    object.clone(duplicate => {
+                        editor.canvas.add(
+                            duplicate.set({
+                                mxid: uniqueId(),
+                                left: activeObject.left - 10,
+                                top: activeObject.top - 10
+                            })
+                        );
+                    });
                 });
-            });
+                onCanvasChangeAndExport();
+            } else {
+                selectedObjects.forEach(object => {
+                    object.clone(duplicate => {
+                        editor.canvas.add(
+                            duplicate.set({
+                                left: activeObject.left - 10,
+                                top: activeObject.top - 10
+                            })
+                        );
+                    });
+                });
+            }
         }
     };
 

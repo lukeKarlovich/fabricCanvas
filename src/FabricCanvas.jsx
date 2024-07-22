@@ -470,20 +470,10 @@ export function FabricCanvas({
 
     const onClearcanvas = () => {
         editor.canvas.clear();
+        if (isAdvanced) {
+            onCanvasChangeAndExport();
+        }
     };
-
-    // const addBackground = () => {
-    //     if (!editor || !fabric) {
-    //         return;
-    //     }
-
-    //     fabric.Image.fromURL(
-    //         "https://thegraphicsfairy.com/wp-content/uploads/2019/02/Anatomical-Heart-Illustration-Black-GraphicsFairy.jpg",
-    //         image => {
-    //             editor.canvas.setBackgroundImage(image, editor.canvas.renderAll.bind(editor.canvas));
-    //         }
-    //     );
-    // };
 
     const importJSON = () => {
         editor.canvas.loadFromJSON(

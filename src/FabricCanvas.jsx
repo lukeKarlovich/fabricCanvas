@@ -479,8 +479,8 @@ export function FabricCanvas({
                 .getElementsByClassName(widgetId)[0]
                 ?.querySelector(".fabric-canvas-component-canvas-container");
             const canvasDimensions = {
-                width: canvasContainer.clientWidth,
-                height: canvasContainer.clientHeight
+                width: canvasContainer?.clientWidth,
+                height: canvasContainer?.clientHeight
             };
             if (editor && editor.canvas && canvasDimensions.height && canvasDimensions.width) {
                 editor.canvas.setDimensions(canvasDimensions);

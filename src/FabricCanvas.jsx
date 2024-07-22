@@ -388,7 +388,11 @@ export function FabricCanvas({
     };
 
     const exportCanvas = () => {
-        return JSON.stringify(editor.canvas.toJSON(["mxid"]).objects);
+        if (isAdvanced) {
+            return JSON.stringify(editor.canvas.toJSON(["mxid"]).objects.filter(e => e.visible));
+        } else {
+            return JSON.stringify(editor.canvas.toJSON(["mxid"]).objects);
+        }
     };
 
     const onExportAndSave = () => {
@@ -672,7 +676,9 @@ export function FabricCanvas({
                                     enlivenedObjects[0]?.setCoords();
                                     editor.canvas.add(enlivenedObjects[0]);
                                 } catch {
-                                    console.info("Unable to add Canvas Object to Canvas due to invalid Canvas Object JSON");
+                                    console.info(
+                                        "Unable to add Canvas Object to Canvas due to invalid Canvas Object JSON"
+                                    );
                                 }
                             } else {
                                 console.info("Unable to add Canvas Object to Canvas due to invalid Canvas Object JSON");

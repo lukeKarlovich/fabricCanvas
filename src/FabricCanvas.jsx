@@ -655,6 +655,16 @@ export function FabricCanvas({
                     }
                 };
             }
+            // Add an event listener for 'path:created' or when a drawing is created
+            editor.canvas.on("path:created", function (event) {
+                var createdPath = event.path;
+                // 'createdPath' is the Fabric.js Path object that was just created
+                if (isAdvanced) {
+                    // Set a custom ID to the path
+                    createdPath.set("mxid", uniqueId());
+                    onCanvasChangeAndExport();
+                }
+            });
         }
     };
 

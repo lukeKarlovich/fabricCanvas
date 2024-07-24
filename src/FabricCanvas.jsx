@@ -147,9 +147,13 @@ export function FabricCanvas({
                 top: 100,
                 fontSize: 16,
                 fontFamily: "Arial",
-                fill: color
+                fill: color,
+                mxid: uniqueId()
             })
         );
+        if (isAdvanced) {
+            onCanvasChangeAndExport();
+        }
     };
 
     const onAddCircle = () => {
@@ -159,9 +163,13 @@ export function FabricCanvas({
                 radius: 20,
                 fill: color,
                 left: 100,
-                top: 100
+                top: 100,
+                mxid: uniqueId()
             })
         );
+        if (isAdvanced) {
+            onCanvasChangeAndExport();
+        }
     };
 
     const onAddEllipse = () => {
@@ -171,9 +179,13 @@ export function FabricCanvas({
                 rx: 20,
                 fill: color,
                 left: 100,
-                top: 100
+                top: 100,
+                mxid: uniqueId()
             })
         );
+        if (isAdvanced) {
+            onCanvasChangeAndExport();
+        }
     };
 
     const onAddRectangle = () => {
@@ -183,9 +195,13 @@ export function FabricCanvas({
                 height: 10,
                 fill: color,
                 left: 100,
-                top: 100
+                top: 100,
+                mxid: uniqueId()
             })
         );
+        if (isAdvanced) {
+            onCanvasChangeAndExport();
+        }
     };
 
     const onAddSquare = () => {
@@ -195,9 +211,13 @@ export function FabricCanvas({
                 height: 20,
                 fill: color,
                 left: 100,
-                top: 100
+                top: 100,
+                mxid: uniqueId()
             })
         );
+        if (isAdvanced) {
+            onCanvasChangeAndExport();
+        }
     };
 
     const onAddTriangle = () => {
@@ -207,9 +227,13 @@ export function FabricCanvas({
                 height: 20,
                 fill: color,
                 left: 100,
-                top: 100
+                top: 100,
+                mxid: uniqueId()
             })
         );
+        if (isAdvanced) {
+            onCanvasChangeAndExport();
+        }
     };
 
     const onAddDiamond = () => {
@@ -223,10 +247,14 @@ export function FabricCanvas({
         var diamond = new fabric.Polygon(points, {
             fill: color,
             left: 100,
-            top: 100
+            top: 100,
+            mxid: uniqueId()
         });
 
         editor.canvas.add(diamond);
+        if (isAdvanced) {
+            onCanvasChangeAndExport();
+        }
     };
 
     const onAddRightTriangle = () => {
@@ -239,10 +267,14 @@ export function FabricCanvas({
         var triangle = new fabric.Polygon(points, {
             fill: color,
             left: 100,
-            top: 100
+            top: 100,
+            mxid: uniqueId()
         });
 
         editor.canvas.add(triangle);
+        if (isAdvanced) {
+            onCanvasChangeAndExport();
+        }
     };
 
     const onAddArc = () => {
@@ -252,9 +284,13 @@ export function FabricCanvas({
                 stroke: color,
                 strokeWidth: 3,
                 left: 100,
-                top: 100
+                top: 100,
+                mxid: uniqueId()
             })
         );
+        if (isAdvanced) {
+            onCanvasChangeAndExport();
+        }
     };
 
     const onAddArrow = () => {
@@ -271,10 +307,14 @@ export function FabricCanvas({
         var arrow = new fabric.Polygon(points, {
             fill: color,
             left: 100,
-            top: 100
+            top: 100,
+            mxid: uniqueId()
         });
 
         editor.canvas.add(arrow);
+        if (isAdvanced) {
+            onCanvasChangeAndExport();
+        }
     };
 
     const onAddDoubleArrow = () => {
@@ -294,10 +334,14 @@ export function FabricCanvas({
         var doubleArrow = new fabric.Polygon(points, {
             fill: color,
             left: 100,
-            top: 100
+            top: 100,
+            mxid: uniqueId()
         });
 
         editor.canvas.add(doubleArrow);
+        if (isAdvanced) {
+            onCanvasChangeAndExport();
+        }
     };
 
     const onAddLine = () => {
@@ -305,9 +349,13 @@ export function FabricCanvas({
             new fabric.Line([50, 100, 200, 200], {
                 left: 100,
                 top: 100,
-                stroke: color
+                stroke: color,
+                mxid: uniqueId()
             })
         );
+        if (isAdvanced) {
+            onCanvasChangeAndExport();
+        }
     };
 
     const onAdjustDrawSizeSmall = () => {

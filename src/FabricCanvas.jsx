@@ -530,11 +530,21 @@ export function FabricCanvas({
                     if ((target && target.selectable) || !imageSrc.current || imageSrc.current === "") {
                         return;
                     }
-                    fabric.Image.fromURL(imageSrc.current, oImg => {
-                        oImg.set("left", pointer.x - oImg.width / 2);
-                        oImg.set("top", pointer.y - oImg.height / 2);
-                        editor.canvas.add(oImg);
-                    });
+                    if (isAdvanced) {
+                        fabric.Image.fromURL(imageSrc.current, oImg => {
+                            oImg.set("left", pointer.x - oImg.width / 2);
+                            oImg.set("top", pointer.y - oImg.height / 2);
+                            oImg.set("mxid", uniqueId());
+                            editor.canvas.add(oImg);
+                            onCanvasChangeAndExport();
+                        });
+                    } else {
+                        fabric.Image.fromURL(imageSrc.current, oImg => {
+                            oImg.set("left", pointer.x - oImg.width / 2);
+                            oImg.set("top", pointer.y - oImg.height / 2);
+                            editor.canvas.add(oImg);
+                        });
+                    }
                 });
             }
             if (hasKeyBoardControls) {
@@ -624,11 +634,21 @@ export function FabricCanvas({
                     setIsDrawing(false);
                 }
                 if (!isImageClickToCanvas) {
-                    fabric.Image.fromURL(imageToAdd.value.uri, oImg => {
-                        oImg.set("left", 100);
-                        oImg.set("top", 100);
-                        editor.canvas.add(oImg);
-                    });
+                    if (isAdvanced) {
+                        fabric.Image.fromURL(imageToAdd.value.uri, oImg => {
+                            oImg.set("left", 100);
+                            oImg.set("top", 100);
+                            oImg.set("mxid", uniqueId());
+                            editor.canvas.add(oImg);
+                            onCanvasChangeAndExport();
+                        });
+                    } else {
+                        fabric.Image.fromURL(imageToAdd.value.uri, oImg => {
+                            oImg.set("left", 100);
+                            oImg.set("top", 100);
+                            editor.canvas.add(oImg);
+                        });
+                    }
                 } else {
                     editor.canvas.selection = false;
                 }

@@ -451,7 +451,7 @@ export function FabricCanvas({
         if (isAdvanced) {
             return JSON.stringify(editor.canvas.toJSON(["mxid"]).objects.filter(e => e.visible));
         } else {
-            return JSON.stringify(editor.canvas.toJSON(["mxid"]).objects);
+            return JSON.stringify(editor.canvas.toJSON().objects);
         }
     };
 
@@ -661,16 +661,22 @@ export function FabricCanvas({
                     }
                 };
             }
-            // Add an event listener for 'path:created' or when a drawing is created
-            editor.canvas.on("path:created", function (event) {
-                var createdPath = event.path;
-                // 'createdPath' is the Fabric.js Path object that was just created
-                if (isAdvanced) {
+
+            if (isAdvanced) {
+                // Add an event listener for 'path:created' or when a drawing is created
+                editor.canvas.on("path:created", function (event) {
+                    var createdPath = event.path;
+                    // 'createdPath' is the Fabric.js Path object that was just created
+
                     // Set a custom ID to the path
                     createdPath.set("mxid", uniqueId());
                     onCanvasChangeAndExport();
-                }
-            });
+                });
+                //Event Listener for updating mendix when an object has been modified on the canvas
+                editor.canvas.on("object:modified", function () {
+                    onCanvasChangeAndExport();
+                });
+            }
         }
     };
 
@@ -737,6 +743,9 @@ export function FabricCanvas({
                 }
             });
             editor.canvas.renderAll();
+            if (isAdvanced) {
+                onCanvasChangeAndExport();
+            }
         }
     }, [color]);
 

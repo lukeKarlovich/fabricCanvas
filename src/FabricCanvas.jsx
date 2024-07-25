@@ -1,6 +1,6 @@
 import { Fragment, createElement, useEffect, useRef, useState } from "react";
 import { fabric } from "fabric";
-import "fabric-history";
+import "./fabric-history/src/index.min.js";
 import { FabricJSCanvas, useFabricJSEditor } from "fabricjs-react";
 import "./ui/FabricCanvas.scss";
 
@@ -405,10 +405,16 @@ export function FabricCanvas({
     const onUndo = () => {
         editor.canvas.undo();
         editor.canvas.renderAll();
+        if (isAdvanced) {
+            onCanvasChangeAndExport();
+        }
     };
 
     const onRedo = () => {
         editor.canvas.redo();
+        if (isAdvanced) {
+            onCanvasChangeAndExport();
+        }
     };
 
     const exportSVG = () => {
@@ -802,14 +808,14 @@ export function FabricCanvas({
                     <Button variant="default" onClick={onDelete} title="Delete">
                         <FontAwesomeIcon icon={faTrashAlt} />
                     </Button>
+                    <Button variant="default" onClick={onUndo} title="Undo">
+                        <FontAwesomeIcon icon={faRotateBackward} />
+                    </Button>
+                    <Button variant="default" onClick={onRedo} title="Redo">
+                        <FontAwesomeIcon icon={faRotateForward} />
+                    </Button>
                     {!isAdvanced ? (
                         <Fragment>
-                            <Button variant="default" onClick={onUndo} title="Undo">
-                                <FontAwesomeIcon icon={faRotateBackward} />
-                            </Button>
-                            <Button variant="default" onClick={onRedo} title="Redo">
-                                <FontAwesomeIcon icon={faRotateForward} />
-                            </Button>
                             <Button variant="default" onClick={onGroup} title="Group">
                                 <FontAwesomeIcon icon={faObjectGroup} />
                             </Button>

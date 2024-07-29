@@ -399,6 +399,7 @@ export function FabricCanvas({
     const onToggleDraw = () => {
         //toggle
         editor.canvas.isDrawingMode = !editor.canvas.isDrawingMode;
+        editor.canvas.freeDrawingBrush.color = color;
         setIsDrawing(!isDrawing);
     };
 

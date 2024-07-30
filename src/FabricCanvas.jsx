@@ -84,21 +84,6 @@ const getCanvasObjectByID = (arrayOfObjects, mxid) => {
     }
 };
 
-function parseAndSet(canvasObject, valsToSet) {
-    const { mxid, ...rest } = valsToSet;
-    // if (subObjects) {
-    canvasObject.set(rest);
-    canvasObject.setCoords();
-    //     subObjects.forEach(subValsToSet => {
-    //         const { subType, ...restOfSub } = subValsToSet;
-    //         const canvasObjectSubType = canvasObject
-    //             .getObjects()
-    //             .find(fabricSubObject => fabricSubObject.subType === subType);
-    //         canvasObjectSubType.set(restOfSub);
-    //     });
-    // }
-}
-
 export function FabricCanvas({
     contentJSON,
     showToolBar,
@@ -418,10 +403,10 @@ export function FabricCanvas({
         }
     };
 
-    const exportSVG = () => {
-        const svg = editor.canvas.toSVG();
-        console.info(svg);
-    };
+    // const exportSVG = () => {
+    //     const svg = editor.canvas.toSVG();
+    //     console.info(svg);
+    // };
 
     const onDownload = () => {
         // Get the data URL of the canvas
@@ -771,7 +756,9 @@ export function FabricCanvas({
                 if (canvasObjectData?.mxid) {
                     const existingCanvasObject = getCanvasObjectByID(allCanvasObjects, canvasObjectData.mxid);
                     if (existingCanvasObject) {
-                        parseAndSet(existingCanvasObject, canvasObjectData);
+                        const { mxid, ...rest } = canvasObjectData;
+                        existingCanvasObject.set(rest);
+                        existingCanvasObject.setCoords();
                     } else {
                         // eslint-disable-next-line
                         fabric.util.enlivenObjects([canvasObjectData], function (enlivenedObjects) {

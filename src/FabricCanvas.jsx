@@ -792,7 +792,6 @@ export function FabricCanvas({
                     }
                 }
             });
-            editor.canvas.discardActiveObject();
             editor.canvas.renderAll();
         }
     }, [canvasObjectList]);

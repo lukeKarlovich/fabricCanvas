@@ -335,6 +335,7 @@ export function FabricCanvas({
                 left: 100,
                 top: 100,
                 stroke: color,
+                fill: color,
                 mxid: uniqueId()
             })
         );

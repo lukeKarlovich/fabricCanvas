@@ -66,7 +66,8 @@ Canvas Object DS: Canvas Objects list
 Canvas Object JSON: JSON of canvas object
 On Canvas Change: Action to be performed when a canvas actions occurs such as duplicate, delete, undo, redo, canvas object moves or changes color. Prior to this action being called, the canvas JSON will be exported to the 'Canvas JSON' attribute
 
-
+### Data Flow Diagram
+![Data Flow Diagram](src/Images/FabricCanvasDataDiagram.png)
 
 ## Limitations
 ### Images

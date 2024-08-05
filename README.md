@@ -1,4 +1,4 @@
-## FabricCanvas
+# FabricCanvas
 The Fabric Canvas widget provides an interactive canvas to the Mendix UI while also allowing canvas data to be read and manipulated from an object oriented perspective within Mendix.
 
 ## Typcial Usage Scenario
@@ -10,7 +10,7 @@ The Fabric Canvas module and widget allows users the ability to create diagrams,
 [FabricJS-React](https://www.npmjs.com/package/fabricjs-react).
 
 ## Features
-# Nav Bar
+### Nav Bar
 Duplicate: Clone selected canvas content
 Delete: Delete selected canvas content
 Undo: Undo the last change made on the canvas
@@ -25,7 +25,7 @@ Draw Size: This changes the size of the drawing stencil
 Add Text: This allows for adding a textbox to the canvas
 Add Shape: This allows for adding shapes (Square, Circle, Triangle, Diamond, Left Arrow, Double Arrow, Line, Ellipse, Rectangle, Right Triangle, Arc) to the canvas.
 
-# Keyboard Shortcuts
+### Keyboard Shortcuts
 Arrow keys: move selected objects around canvas
 Delete/Backspace: delete selected objects
 Ctrl + z: Undo
@@ -34,7 +34,7 @@ Ctrl + y: redo
 ## Configuration
 The Fabric Canvas widget has a Basic and Advanced configurations.
 
-# Basic
+### Basic
 Data Sources
 Canvas JSON: Attribute to store the JSON of the canvas contents (no string limit)
 Selected Content JSON (Optional): Attribute to store the JSON of the selected canvas contents (no string limit)
@@ -59,7 +59,7 @@ Show Clear Canvas Btn: Will clear all contents of the canvas
 Show Download Btn: Will download canvas as a png
 Default Color: Default CSS color for canvas, this includes shapes, text and drawing stencil
 
-# Advanced
+### Advanced
 Using the advanced configuration of the application allows for canvas objects to be mapped to mendix objects. See data flow diagram screenshot for more in depth description.
 
 Canvas Object DS: Canvas Objects list
@@ -69,11 +69,11 @@ On Canvas Change: Action to be performed when a canvas actions occurs such as d
 
 
 ## Limitations
-# Images
+### Images
 When adding images, SVGs must have specified height and width, otherwise the SVG will use the entire screen as the parent container.
 When images are added to the canvas they use the mendix file folder path. If the images are deleted form mendix then they will not be able to be referenced and shown on the canvas.
 
-# Nav Bar
+### Nav Bar
 Advanced has all of the basic nav bar abilities with the exception of group and ungroup
 
 ## Development and contribution

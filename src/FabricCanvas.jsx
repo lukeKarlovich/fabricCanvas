@@ -3,7 +3,6 @@ import { fabric } from "fabric";
 import "./fabric-history/src/index.min.js";
 import { FabricJSCanvas, useFabricJSEditor } from "fabricjs-react";
 import "./ui/FabricCanvas.scss";
-
 import { Button, ToggleButton, Dropdown } from "react-bootstrap";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faClone, faTrashAlt } from "@fortawesome/fontawesome-free-regular";
@@ -113,6 +112,32 @@ export function FabricCanvas({
     const [drawingWidth, setDrawingWidth] = useState(1);
     const [widgetId, setWidgetId] = useState("");
 
+    const exportCanvas = () => {
+        if (isAdvanced) {
+            return JSON.stringify(editor.canvas.toJSON(["mxid"]).objects.filter(e => e.visible));
+        } else {
+            return JSON.stringify(editor.canvas.toJSON().objects);
+        }
+    };
+
+    const onCanvasChangeAndExport = () => {
+        if (onCanvasChange?.canExecute && contentJSON.status === "available") {
+            if (!contentJSON.readonly) {
+                contentJSON.setValue(exportCanvas());
+            }
+            onCanvasChange.execute();
+        }
+    };
+
+    const onExportAndSave = () => {
+        if (contentJSON.status === "available" && onSave.canExecute) {
+            if (!contentJSON.readonly) {
+                contentJSON.setValue(exportCanvas());
+            }
+            onSave.execute();
+        }
+    };
+
     const onDelete = () => {
         if (editor.canvas.getActiveObjects()) {
             editor.canvas.getActiveObjects().forEach(obj => {
@@ -148,8 +173,7 @@ export function FabricCanvas({
                 radius: 20,
                 fill: color,
                 left: 100,
-                top: 100,
-                mxid: uniqueId()
+                top: 100
             })
         );
         if (isAdvanced) {
@@ -427,28 +451,6 @@ export function FabricCanvas({
         document.body.removeChild(link);
     };
 
-    const onCanvasChangeAndExport = () => {
-        if (onCanvasChange?.canExecute && contentJSON.status === "available") {
-            !contentJSON.readonly ? contentJSON.setValue(exportCanvas()) : null;
-            onCanvasChange.execute();
-        }
-    };
-
-    const exportCanvas = () => {
-        if (isAdvanced) {
-            return JSON.stringify(editor.canvas.toJSON(["mxid"]).objects.filter(e => e.visible));
-        } else {
-            return JSON.stringify(editor.canvas.toJSON().objects);
-        }
-    };
-
-    const onExportAndSave = () => {
-        if (contentJSON.status === "available" && onSave.canExecute) {
-            !contentJSON.readonly ? contentJSON.setValue(exportCanvas()) : null;
-            onSave.execute();
-        }
-    };
-
     const lockBackgroundShapes = () => {
         editor.canvas.discardActiveObject();
         editor.canvas.getObjects().forEach(obj => lockObject(obj, false));
@@ -514,19 +516,6 @@ export function FabricCanvas({
         if (isAdvanced) {
             onCanvasChangeAndExport();
         }
-    };
-
-    const importJSON = () => {
-        editor.canvas.loadFromJSON(
-            {
-                version: "5.3.0",
-                objects: JSON.parse(contentJSON.value)
-            },
-            // eslint-disable-next-line
-            function () {
-                prepareCanvas();
-            }
-        );
     };
 
     const prepareCanvas = () => {
@@ -651,6 +640,7 @@ export function FabricCanvas({
 
             if (isAdvanced) {
                 // Add an event listener for 'path:created' or when a drawing is created
+                // eslint-disable-next-line
                 editor.canvas.on("path:created", function (event) {
                     var createdPath = event.path;
                     // 'createdPath' is the Fabric.js Path object that was just created
@@ -660,11 +650,25 @@ export function FabricCanvas({
                     onCanvasChangeAndExport();
                 });
                 //Event Listener for updating mendix when an object has been modified on the canvas
+                // eslint-disable-next-line
                 editor.canvas.on("object:modified", function () {
                     onCanvasChangeAndExport();
                 });
             }
         }
+    };
+
+    const importJSON = () => {
+        editor.canvas.loadFromJSON(
+            {
+                version: "5.3.0",
+                objects: JSON.parse(contentJSON.value)
+            },
+            // eslint-disable-next-line
+            function () {
+                prepareCanvas();
+            }
+        );
     };
 
     //Component Will Mount
